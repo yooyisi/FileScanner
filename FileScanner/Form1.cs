@@ -18,7 +18,6 @@ namespace FileScanner
         String currentDir;
         String htmlPath = "/index.html";
         String header = "Files explorer";
-        String title = "Files in current directory: ";
 
         public Form1()
         {
@@ -26,7 +25,6 @@ namespace FileScanner
 
             currentDir = Directory.GetCurrentDirectory();
             htmlPath = currentDir + htmlPath;
-            title = title + currentDir;
         }
 
         private void scanner(DirectoryInfo di, int layers)
@@ -41,16 +39,18 @@ namespace FileScanner
             IEnumerator files = di.EnumerateFiles().GetEnumerator();
             while (files.MoveNext())
             {
+                fileWriter.WriteLine("<ul style=\"list-style-type:none\">");
                 if (!((FileInfo)files.Current).Attributes.HasFlag(FileAttributes.Hidden))
                 {
-                    fileWriter.WriteLine("<li><a href = \"file:///" + di.FullName + "\\" + files.Current + "\" >" + files.Current + "</a></li>");
+                    fileWriter.WriteLine("<li><a href = \"file:///" + di.FullName + "\\" + files.Current + "\" >"+files.Current + "</a></li>");
                     hasFile = true;
                 }
+                fileWriter.WriteLine("</ul>");
             }
 
             if (!hasFile)
             {
-                fileWriter.WriteLine("<br> ### no file in this directory ###");
+                //fileWriter.WriteLine("<br> ### no file in this directory ###");
             }
 
             IEnumerator folders = di.EnumerateDirectories().GetEnumerator();
@@ -58,13 +58,11 @@ namespace FileScanner
             {
                 if (!((DirectoryInfo)folders.Current).Attributes.HasFlag(FileAttributes.Hidden))
                 {
-                    fileWriter.WriteLine("<ul>");
-                    fileWriter.WriteLine("----------------------------");
-                    fileWriter.WriteLine("<a href = \"file:///" + di.FullName + "\\" + folders.Current + "\" >" + folders.Current + "</a>");
-                    fileWriter.WriteLine("----------------------------");
+                    fileWriter.WriteLine("<ol style=\"list-style-type:none\">");
+                    fileWriter.WriteLine("<li><H2><a href = \"file:///" + di.FullName + "\\" + folders.Current + "\" >" + folders.Current + "</a></H2></li>");
                     fileWriter.WriteLine();
                     scanner((DirectoryInfo)folders.Current, layers-1);
-                    fileWriter.WriteLine("</ul>");
+                    fileWriter.WriteLine("</ol>");
                 }
             }
         }
@@ -74,9 +72,13 @@ namespace FileScanner
             fileWriter = new StreamWriter(htmlPath, false);
             
             fileWriter.WriteLine("<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>"
-                +header+"</title>\n</head>");
+                +header+ "</title><link rel=\"stylesheet\" href=\"wiki\\sources\\_html_sources\\style.css\" type=\"text/css\">\n</head>");
             fileWriter.WriteLine("<body>");
-            fileWriter.WriteLine("<h1>"+ title +"</h1>");
+
+            string ul = "ul{ margin-left:0.4em; } ol{ margin-left:0.4em; }";
+            fileWriter.WriteLine("<style>");
+            fileWriter.WriteLine(ul);
+            fileWriter.WriteLine("ul li:before{content: '\\2192';margin: 1em 1em;} H2:before{content: '\\25A0';margin: 1em 1.4em;}</style> ");
         }
 
         private void btn_scan_Click(object sender, EventArgs e)
