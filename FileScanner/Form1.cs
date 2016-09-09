@@ -78,6 +78,7 @@ namespace FileScanner
             string ul = "ul{ margin-left:0.4em; } ol{ margin-left:0.4em; }";
             fileWriter.WriteLine("<style>");
             fileWriter.WriteLine(ul);
+            fileWriter.WriteLine("ul li{font-family: Geneva, Lucida Grande, Univers, Helvetica, sans-serif;}");
             fileWriter.WriteLine("ul li:before{content: '\\2192';margin: 1em 1em;} H2:before{content: '\\25A0';margin: 1em 1.4em;}</style> ");
         }
 
