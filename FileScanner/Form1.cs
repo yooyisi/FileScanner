@@ -74,12 +74,10 @@ namespace FileScanner
             fileWriter.WriteLine("<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>"
                 +header+ "</title><link rel=\"stylesheet\" href=\"wiki\\sources\\_html_sources\\style.css\" type=\"text/css\">\n</head>");
             fileWriter.WriteLine("<body>");
-
-            string ul = "ul{ margin-left:0.4em; } ol{ margin-left:0.4em; }";
+            
             fileWriter.WriteLine("<style>");
-            fileWriter.WriteLine(ul);
-            fileWriter.WriteLine("ul li{font-size:14px; font-family: Geneva, Lucida Grande, Univers, Helvetica, sans-serif;font-variant: normal;text-align: justify; color: #323232;}");
-            fileWriter.WriteLine("ul li:before{content: '\\2192';margin: 1em 1em;} H2:before{content: '\\25A0';margin: 1em 1.4em;}</style> ");
+            fileWriter.WriteLine("ul li{font-weight:bold;font-size:14px; font-family: Geneva, Lucida Grande, Univers, Helvetica, sans-serif;font-variant: normal;text-align: justify; color: #323232;}");
+            fileWriter.WriteLine("ul li:before{content: '\\2192';display:inline-block;width:30px;} H2:before{content: '\\25A0';display:inline-block;width:30px;}</style> ");
         }
 
         private void btn_scan_Click(object sender, EventArgs e)
