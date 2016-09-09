@@ -42,7 +42,7 @@ namespace FileScanner
                 fileWriter.WriteLine("<ul style=\"list-style-type:none\">");
                 if (!((FileInfo)files.Current).Attributes.HasFlag(FileAttributes.Hidden))
                 {
-                    fileWriter.WriteLine("<li><a href = \"file:///" + di.FullName + "\\" + files.Current + "\" >"+files.Current + "</a></li>");
+                    fileWriter.WriteLine("<li><H2><file><a href = \"file:///" + di.FullName + "\\" + files.Current + "\" >"+files.Current + "</a></file></H2></li>");
                     hasFile = true;
                 }
                 fileWriter.WriteLine("</ul>");
@@ -59,7 +59,7 @@ namespace FileScanner
                 if (!((DirectoryInfo)folders.Current).Attributes.HasFlag(FileAttributes.Hidden))
                 {
                     fileWriter.WriteLine("<ol style=\"list-style-type:none\">");
-                    fileWriter.WriteLine("<li><H2><a href = \"file:///" + di.FullName + "\\" + folders.Current + "\" >" + folders.Current + "</a></H2></li>");
+                    fileWriter.WriteLine("<li><H2><folder><a href = \"file:///" + di.FullName + "\\" + folders.Current + "\" >" + folders.Current + "</a></folder></H2></li>");
                     fileWriter.WriteLine();
                     scanner((DirectoryInfo)folders.Current, layers-1);
                     fileWriter.WriteLine("</ol>");
@@ -76,8 +76,8 @@ namespace FileScanner
             fileWriter.WriteLine("<body>");
             
             fileWriter.WriteLine("<style>");
-            fileWriter.WriteLine("ul li{font-weight:bold;font-size:14px; font-family: Geneva, Lucida Grande, Univers, Helvetica, sans-serif;font-variant: normal;text-align: justify; color: #323232;}");
-            fileWriter.WriteLine("ul li:before{content: '\\2192';display:inline-block;width:30px;} H2:before{content: '\\25A0';display:inline-block;width:30px;}</style> ");
+            fileWriter.WriteLine("file:before{content: '\\2192';display:inline-block;width:30px;}");
+            fileWriter.WriteLine("folder:before{content: '\\25A0';display:inline-block;width:30px;}</style> ");
         }
 
         private void btn_scan_Click(object sender, EventArgs e)
